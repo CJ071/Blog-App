@@ -18,3 +18,14 @@ app.listen(3000,()=>console.log(`Server running successfully on port 3000`))
 
 app.use('/api/user',userRoute)
 app.use('/api/auth',authRoute)
+
+app.use((err,req,res,next)=>{
+    const statusCode=err.statusCode || 500
+    const message=err.message || 'Internal Server Error'
+
+    res.json({
+        success:false,
+        statusCode,
+        message
+    })
+})
