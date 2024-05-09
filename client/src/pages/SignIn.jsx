@@ -8,7 +8,7 @@ export default function SignIn() {
 
   const navigate=useNavigate()
   const dispatch=useDispatch()
-  const {loading,error:errorMessage}=useSelector(state=>state.user)
+  const {loading,error:errorMessage}=useSelector((state)=>state.user)
   const [formData,setFormData]=useState({})
 
   const handleChange=(e)=>{
