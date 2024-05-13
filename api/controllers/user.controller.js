@@ -23,7 +23,8 @@ export const updateUser=async(req,res,next)=>{
 
     req.body.password=bcryptjs.hashSync(req.body.password,10)
 }
-
+if(req.body.username)
+{
     if(req.body.username.includes(' '))
     {
         return next(errorHandler(400,'Username must not contain spaces'))
@@ -45,8 +46,10 @@ export const updateUser=async(req,res,next)=>{
     if(!req.body.username.match(/^[a-zA-Z0-9]+$/)){
         return next(errorHandler(400,'Username must contain letters and numbers'))
     }
+}
 
     try {
+
         const updatedUser=await User.findByIdAndUpdate(
             req.params.userId,
           {
@@ -58,11 +61,13 @@ export const updateUser=async(req,res,next)=>{
             }
           },{new:true}
         )
-
+        // await updatedUser.save()
+        console.log(updatedUser)
         const {password,...rest}=updatedUser._doc
  
         res.status(200).json(rest)
-    } catch (error) {
+    } 
+    catch (error) {
         next(error)
     }
 }
