@@ -61,13 +61,26 @@ if(req.body.username)
             }
           },{new:true}
         )
-        // await updatedUser.save()
-        console.log(updatedUser)
+       
         const {password,...rest}=updatedUser._doc
  
         res.status(200).json(rest)
     } 
     catch (error) {
         next(error)
+    }
+}
+
+export const deleteUser=async(req,res,next)=>{
+    if(req.params.userId!==req.user.id)
+    {
+        return next(errorHandler(403,'You are allowed to delete user'))
+    }
+    try {
+        await User.findByIdAndDelete(req.params.userId)
+
+        res.status(200).json('user has been deleted successfully')
+    } catch (error) {
+        
     }
 }
