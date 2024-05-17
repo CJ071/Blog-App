@@ -4,7 +4,7 @@ import { verifyUser } from '../utils/verifyUser.js'
 
 const router=express.Router()
 
-router.get('/getUsers',verifyUser,getUsers)
+router.get('/getusers',verifyUser,getUsers)
 router.put('/update/:userId',verifyUser,updateUser)
 router.delete('/delete/:userId',verifyUser,deleteUser)
 router.post('/signout',signout)
