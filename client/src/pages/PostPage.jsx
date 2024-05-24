@@ -2,6 +2,7 @@ import { Button,Spinner } from "flowbite-react"
 import { useState,useEffect } from "react"
 import { Link,useParams } from "react-router-dom"
 import CallToAction from "../components/CallToAction"
+import CommentSection from "../components/CommentSection"
 
 export default function PostPage() {
     const {postSlug}=useParams()
@@ -25,6 +26,7 @@ export default function PostPage() {
 
                 if(res.ok)
                 {
+                    console.log(data.posts[0])
                     setPost(data.posts[0])
                     setLoading(false)
                     setError(false)
@@ -64,6 +66,8 @@ export default function PostPage() {
             <div className="max-w-4xl mx-auto w-full">
                 <CallToAction/>
             </div>
+        {post && <CommentSection postId={post._id}/>}
+            {/* <CommentSection postId={post._id}/> */}
     </main>
   )
 }
