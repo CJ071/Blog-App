@@ -134,3 +134,19 @@ export const getUsers=async(req,res,next)=>{
         next(error)
     }
 }
+
+export const getUser=async(req,res,next)=>{
+
+    try {
+        const user=await User.findById(req.params.userId)
+        if(!user)
+        {
+            return next(errorHandler(403,'User does not exist'))
+        }
+        const {password,...rest}=user._doc
+
+        res.status(200).json(rest)
+    } catch (error) {
+        next(error)
+    }
+}
